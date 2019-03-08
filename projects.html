@@ -1,0 +1,53 @@
+---
+title: Projects
+layout: page
+---
+<hr>
+<hr>
+<h1>Android Apps</h1>
+<section class="list">
+{% assign sorted_pages = site.posts | sort : 'title' %}
+	{% for post in sorted_pages %}
+		{% if post.projects and post.android %}
+			<div class="item {% if post.star %}star{% endif %}">
+				<a class="url" href="{{ post.externalLink }}">
+				<img src="{{ site.url }}{{ post.icon }}" style="width:72px;height:auto;float:left;margin:12px;">
+				<div style="float:left;"> <h3 style="margin-bottom:10px;">{{ post.title }}</h3> <p style="margin:0; font-size:14px">{{ post.desc }}</p> </div>
+                </a>
+				<div style="clear:both;"></div>
+			</div>
+		{% endif %}
+	{% endfor %}
+</section>
+<hr>
+<h1>Web Apps</h1>
+<section class="list">
+{% assign sorted_pages = site.posts | sort : 'title' %}
+	{% for post in sorted_pages %}
+		{% if post.projects and post.web %}
+			<div class="item {% if post.star %}star{% endif %}">
+				<a class="url" href="{{ post.externalLink }}">
+				<img src="{{ site.url }}{{ post.icon }}" style="width:72px;height:auto;float:left;margin:12px;">
+				<div style="float:left;"> <h3 style="margin-bottom:10px;">{{ post.title }}</h3> <p style="margin:0; font-size:14px">{{ post.desc }}</p> </div>
+                </a>
+				<div style="clear:both;"></div>
+			</div>
+		{% endif %}
+	{% endfor %}
+</section>
+<hr>
+<h1>Desktop Apps</h1>
+<section class="list">
+{% assign sorted_pages = site.posts | sort : 'title' %}
+	{% for post in sorted_pages %}
+		{% if post.projects and post.desktop %}
+			<div class="item {% if post.star %}star{% endif %}">
+				<a class="url" href="{{ post.externalLink }}">
+				<img src="{{ site.url }}{{ post.icon }}" style="width:72px;height:auto;float:left;margin:12px;">
+				<div style="float:left;"> <h3 style="margin-bottom:10px;">{{ post.title }}</h3> <p style="margin:0; font-size:14px">{{ post.desc }}</p> </div>
+                </a>
+				<div style="clear:both;"></div>
+			</div>
+		{% endif %}
+	{% endfor %}
+</section>

@@ -1,0 +1,55 @@
+name: Muhammad Thomas Fadhila Yahya
+bio: A man who believes in Hogwarts and Wakanda
+external-image: false
+picture: assets/images/profiles.jpg
+resume: false
+resume-external: false
+resume-url: 'https://google.com/?q=my+resume'
+url: 'https://fadhilthomas.github.io'
+permalink: '/:title/'
+disqus:
+  shortname: mydisqus
+  categories:
+    - blog
+    - project
+facebook: fadhilthomas
+linkedin: fadhilthomas
+github: fadhilthomas
+email: mthomasfadhilayahya@gmail.com
+authors:
+  fadhilthomas:
+    name: Muhammad Thomas Fadhila Yahya
+    bio: A man who believes in Hogwarts and Wakanda
+    external-image: false
+    picture: assets/images/profiles.jpg
+width: normal
+projects: true
+about: false
+blog: true
+read-time: true
+show-tags: true
+related: true
+post-advance-links:
+  - blog
+show-author: true
+animation: true
+plugins:
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-admin
+jekyll-mentions:
+  base_url: 'https://github.com'
+compress_html:
+  ignore:
+    envs:
+      - development
+      - stage
+exclude:
+  - travis.sh
+  - Rakefile
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - FAQ.md
