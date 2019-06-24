@@ -12,9 +12,6 @@ category: blog
 author: fadhilthomas
 ---
 
-# [Writeup][Bug Bounty] Manipulasi Jumlah Likes di Ulasan Produk di Tokopedia
-
-----
 <p align="center">
   <img src="https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.jpg">
 </p>
