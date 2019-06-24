@@ -33,37 +33,31 @@ Manipulasi jumlah likes pada Ulasan Produk
 
 ----
 ## Steps to Reproduce 
-Login ke dalam akun Tokopeda.
+* Login ke dalam akun Tokopeda dan buka halaman ulasan suatu produk.
 <br/>
 <br/>
-Buka halaman ulasan suatu produk.
-<br/>
-<br/>
-Intercept koneksi request, klik tombol like suatu review.
+* Intercept koneksi request, klik tombol like suatu review.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img2.jpg)
 <br/>
 <br/>
-Dalam koneksi request yang ter-intercept, ada beberapa parameter yaitu:
+* Dalam koneksi request yang ter-intercept, ada beberapa parameter yaitu:
 **product_id** adalah id product yang direview
 **shop_id** adalah id toko
 **user_id** adalah id user yang melakukan like
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img3.jpg)
 <br/>
 <br/>
-Forward request, kemudian mendapat balasan success.
+* Forward request, kemudian mendapat balasan success.
 <br/>
-Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut.
-<br/>
-<br/>
-Ubah user_id dengan id user lain dan hapus beberapa parameter untuk mem-bypass autentikasi user.
+* Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut. Ubah user_id dengan id user lain dan hapus beberapa parameter untuk mem-bypass autentikasi user.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img4.jpg)
 <br/>
 <br/>
-Forward request lagi.
+* Forward request lagi.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img5.jpg)
 <br/>
 <br/>
-Jumlah like bertambah.
+* Jumlah like bertambah.
 <br/>
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img6.jpg)
 <br/>
