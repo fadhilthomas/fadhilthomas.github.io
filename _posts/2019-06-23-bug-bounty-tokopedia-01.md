@@ -18,11 +18,11 @@ author: fadhilthomas
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.jpg)
 
 ## Pendahuluan
-> Sebelum mulai ke pembahasan, pertama kita bahas dulu apa itu IDOR. Insecure Direct Object Reference yang selanjutnya disebut IDOR adalah suatu kondisi di mana pengguna dapat mengakses suatu objek tanpa melewati pemeriksaan hak akses. (OWASP, 2019)
+Sebelum mulai ke pembahasan, pertama kita bahas dulu apa itu IDOR. Insecure Direct Object Reference yang selanjutnya disebut IDOR adalah suatu kondisi di mana pengguna dapat mengakses suatu objek tanpa melewati pemeriksaan hak akses. (OWASP, 2019)
 
-> Dengan celah IDOR, seorang pengguna dapat melakukan pengaksesan, pengubahan, serta penghapusan suatu data. Hal ini membuat IDOR termasuk celah keamanan yang sangat berbahaya.
+Dengan celah IDOR, seorang pengguna dapat melakukan pengaksesan, pengubahan, serta penghapusan suatu data. Hal ini membuat IDOR termasuk celah keamanan yang sangat berbahaya.
 
-> Baiklah, setelah mengetahui apa itu IDOR, kita lanjut ke pembahasan mengenai bug ini. Perlu diketahui, bug yang dibahas pada writeup ini sudah dipatch oleh pihak Tokopedia dan dalam gambar screenshot akan disensor karena PII.
+Baiklah, setelah mengetahui apa itu IDOR, kita lanjut ke pembahasan mengenai bug ini. Perlu diketahui, bug yang dibahas pada writeup ini sudah dipatch oleh pihak Tokopedia dan dalam gambar screenshot akan disensor karena PII.
 
 ----
 ## Affected Endpoint 
@@ -30,11 +30,11 @@ author: fadhilthomas
 
 ----
 ## Impact
-> Manipulasi jumlah likes pada Ulasan Produk
+Manipulasi jumlah likes pada Ulasan Produk
 
 ----
 ## Steps to Reproduce 
->1. Login ke dalam akun Tokopeda.
+1. Login ke dalam akun Tokopeda.
 2. Buka halaman ulasan suatu produk.
 3. Intercept koneksi request, klik tombol like suatu review.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img2.jpg)
@@ -55,7 +55,7 @@ author: fadhilthomas
 
 ----
 ## Timeline
->* 23 Feb 2019 : Melaporkan ke Tokopedia.
+* 23 Feb 2019 : Melaporkan ke Tokopedia.
 * 23 Feb 2019 : Tokopedia menerima laporan.
 * 25 Feb 2019 : Tokopedia menyatakan valid dengan severy Medium.
 * 01 Apr 2019 : Bug telah diperbaiki.
@@ -63,6 +63,6 @@ author: fadhilthomas
 
 ----
 ## References
->1. https://www.owasp.org/index.php/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet
+1. https://www.owasp.org/index.php/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet
 2. https://www.owasp.org/index.php/Testing_for_Insecure_Direct_Object_References_(OTG-AUTHZ-004)
 3. https://www.bugcrowd.com/how-to-find-idor-insecuredirect-object-reference-vulnerabilities-for-large-bountyrewards/
