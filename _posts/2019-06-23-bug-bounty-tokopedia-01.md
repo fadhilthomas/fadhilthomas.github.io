@@ -21,7 +21,7 @@ Sebelum mulai ke pembahasan, pertama kita bahas dulu apa itu IDOR. Insecure Dire
 
 Dengan celah IDOR, seorang pengguna dapat melakukan pengaksesan, pengubahan, serta penghapusan suatu data. Hal ini membuat IDOR termasuk celah keamanan yang sangat berbahaya.
 
-Baiklah, setelah mengetahui apa itu IDOR, kita lanjut ke pembahasan mengenai bug ini. Perlu diketahui, bug yang dibahas pada writeup ini sudah dipatch oleh pihak Tokopedia dan dalam gambar screenshot akan disensor karena PII.
+Baiklah, setelah mengetahui apa itu IDOR, kita lanjut ke pembahasan mengenai bug ini. Perlu diketahui, bug yang dibahas pada writeup ini sudah dipatch oleh pihak Tokopedia dan screenshot akan disensor karena PII.
 
 ----
 ## Affected Endpoint 
@@ -49,7 +49,8 @@ Manipulasi jumlah likes pada Ulasan Produk
 <br/>
 * Forward request, kemudian mendapat balasan success.
 <br/>
-* Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut. Ubah user_id dengan id user lain dan hapus beberapa parameter untuk mem-bypass autentikasi user.
+<br/>
+* Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut. Ubah user_id dengan id user lain dan hapus beberapa parameter untuk melewati autentikasi user.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img4.jpg)
 <br/>
 <br/>
