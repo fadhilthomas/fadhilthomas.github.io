@@ -15,7 +15,9 @@ author: fadhilthomas
 # [Writeup][Bug Bounty] Manipulasi Jumlah Likes di Ulasan Produk di Tokopedia
 
 ----
-![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.jpg)
+<p align="center">
+  <img src="https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.jpg">
+</p>
 
 ## Pendahuluan
 Sebelum mulai ke pembahasan, pertama kita bahas dulu apa itu IDOR. Insecure Direct Object Reference yang selanjutnya disebut IDOR adalah suatu kondisi di mana pengguna dapat mengakses suatu objek tanpa melewati pemeriksaan hak akses. (OWASP, 2019)
