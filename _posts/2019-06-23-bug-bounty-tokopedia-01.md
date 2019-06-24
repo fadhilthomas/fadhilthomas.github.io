@@ -36,30 +36,38 @@ Manipulasi jumlah likes pada Ulasan Produk
 
 ----
 ## Steps to Reproduce 
-1. Login ke dalam akun Tokopeda.
+Login ke dalam akun Tokopeda.
 <br/>
-2. Buka halaman ulasan suatu produk.
 <br/>
-3. Intercept koneksi request, klik tombol like suatu review.
+Buka halaman ulasan suatu produk.
+<br/>
+<br/>
+Intercept koneksi request, klik tombol like suatu review.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img2.jpg)
 <br/>
-4. Dalam koneksi request yang ter-intercept, ada beberapa parameter yaitu:
+<br/>
+Dalam koneksi request yang ter-intercept, ada beberapa parameter yaitu:
 **product_id** adalah id product yang direview
 **shop_id** adalah id toko
 **user_id** adalah id user yang melakukan like
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img3.jpg)
 <br/>
-5. Forward request, kemudian mendapat balasan success.
 <br/>
-6. Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut.
+Forward request, kemudian mendapat balasan success.
 <br/>
-7. Ubah user_id dengan id user lain dan hapus beberapa parameter untuk mem-bypass autentikasi user.
+Untuk mencoba melakukan manipulasi yaitu menambah jumlah like yaitu dengan mengganti id user dengan id user lain, tanpa perlu interaksi user tersebut.
+<br/>
+<br/>
+Ubah user_id dengan id user lain dan hapus beberapa parameter untuk mem-bypass autentikasi user.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img4.jpg)
 <br/>
-8. Forward request lagi.
+<br/>
+Forward request lagi.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img5.jpg)
 <br/>
-9. Jumlah like bertambah.
+<br/>
+Jumlah like bertambah.
+<br/>
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img6.jpg)
 <br/>
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img7.jpg)
