@@ -41,9 +41,9 @@ Manipulasi jumlah likes pada Ulasan Produk
 <br/>
 <br/>
 * Dalam koneksi request yang ter-intercept, ada beberapa parameter yaitu:
-**product_id** adalah id product yang direview
-**shop_id** adalah id toko
-**user_id** adalah id user yang melakukan like
+**product_id** adalah id product yang direview,
+**shop_id** adalah id toko, dan
+**user_id** adalah id user yang melakukan like.
 ![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img3.jpg)
 <br/>
 <br/>
@@ -67,7 +67,7 @@ Manipulasi jumlah likes pada Ulasan Produk
 ## Timeline
 * 23 Feb 2019 : Melaporkan ke Tokopedia.
 * 23 Feb 2019 : Tokopedia menerima laporan.
-* 25 Feb 2019 : Tokopedia menyatakan valid dengan severy Medium.
+* 25 Feb 2019 : Tokopedia menyatakan valid dengan severty Medium.
 * 01 Apr 2019 : Bug telah diperbaiki.
 * 22 May 2019 : Reward dikirim.
 
