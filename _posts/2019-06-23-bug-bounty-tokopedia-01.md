@@ -68,7 +68,7 @@ Manipulasi jumlah likes pada Ulasan Produk
 ## Timeline
 * 23 Feb 2019 : Melaporkan ke Tokopedia.
 * 23 Feb 2019 : Tokopedia menerima laporan.
-* 25 Feb 2019 : Tokopedia menyatakan valid dengan severty Medium.
+* 25 Feb 2019 : Tokopedia menyatakan valid dengan severity Medium.
 * 01 Apr 2019 : Bug telah diperbaiki.
 * 22 May 2019 : Reward dikirim.
 
