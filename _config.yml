@@ -8,7 +8,7 @@ resume-url: 'https://google.com/?q=my+resume'
 url: 'https://fadhilthomas.github.io'
 permalink: '/:title/'
 disqus:
-  shortname: mydisqus
+  shortname: fadhilthomas
   categories:
     - blog
     - project
