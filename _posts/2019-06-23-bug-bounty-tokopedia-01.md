@@ -1,5 +1,5 @@
 ---
-title: "[Writeup][Bug Bounty] Manipulasi Jumlah Likes di Ulasan Produk di Tokopedia"
+title: "[Writeup][Bug Bounty] Manipulasi Jumlah Likes di Ulasan Produk di Tokopedia [ID]"
 layout: post
 date: '2019-06-23 18:03:56'
 headerImage: false
@@ -33,7 +33,7 @@ Manipulasi jumlah likes pada Ulasan Produk
 
 ----
 ## Steps to Reproduce 
-* Login ke dalam akun Tokopeda dan buka halaman ulasan suatu produk.
+* Login ke dalam akun Tokopedia dan buka halaman ulasan suatu produk.
 <br/>
 <br/>
 * Intercept koneksi request, klik tombol like suatu review.
