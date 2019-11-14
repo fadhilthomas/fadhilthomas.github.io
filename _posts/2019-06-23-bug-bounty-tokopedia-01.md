@@ -1,5 +1,5 @@
 ---
-title: "[Writeup][Bug Bounty] Manipulasi Jumlah Likes di Ulasan Produk di Tokopedia [ID]"
+title: "[Writeup][Bug Bounty][Tokopedia] Manipulasi Jumlah Likes di Ulasan Produk [ID]"
 layout: post
 date: '2019-06-23 18:03:56'
 headerImage: false
