@@ -13,7 +13,7 @@ author: fadhilthomas
 ---
 
 <p align="center">
-  <img src="https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.jpg">
+  <img src="https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia01/img1.png">
 </p>
 
 ## Intro
@@ -21,11 +21,11 @@ Setelah melakukan login, kita akan dialihkan ke halaman verifikasi dengan dua op
 
 ----
 ## Affected Endpoint 
-https://accounts.tokopedia.com/otp/c/page?d=Wed%2C+13+Feb+2019+11%3A11%3A19+%2B0700&h=h4YnAMzDb4zAVjThQXtGbxa2C7Hv80Fk4TAUXe%2BvGqk%3D&ld=https%3A%2F%2Faccounts.tokopedia.com%2Fotp%2Finterrupt%2Fsl&otp_type=13
+https://accounts.tokopedia.com/otp/c/page
 
 ----
 ## Impact
-1. Apabila kredential pengguna bocor dan seseorang mencoba untuk melakukan login, walaupun dia belum melewati halaman verifikasi tetapi dia sudah bisa mendapatkan informasi sensitif pengguna seperti nama, nomor telepon, email, tanggal pendaftaran dan ulang tahun yang dapat digunakan untuk melakukan phishing untuk mencuri kode verifikasi.
+* Apabila kredential pengguna bocor dan seseorang mencoba untuk melakukan login, walaupun dia belum melewati halaman verifikasi tetapi dia sudah bisa mendapatkan informasi sensitif pengguna seperti nama, nomor telepon, email, tanggal pendaftaran dan ulang tahun yang dapat digunakan untuk melakukan phishing untuk mencuri kode verifikasi.
 
 ----
 ## Steps to Reproduce 
@@ -37,13 +37,13 @@ https://accounts.tokopedia.com/otp/c/page?d=Wed%2C+13+Feb+2019+11%3A11%3A19+%2B0
 <br/>
 <br/>
 * Dalam parameter badan request, email dan nomor telepon ditutupi tetapi ada informasi menarik dalam cookie
-![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img2.jpg)
+![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img2.png)
 <br/>
 <br/>
 * Coba URL decode informasi tersebut. Terbukti informasi tersebut adalah informasi sensitif pengguna seperti: nama, nomor telepon, email, tanggal pendaftaran, dan ulang tahun.
-![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img3.jpg)
-![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img4.jpg)
-![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img5.jpg)
+![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img3.png)
+![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img4.png)
+![alt text](https://github.com/fadhilthomas/fadhilthomas.github.io/raw/master/assets/images/tokopedia02/img5.png)
 
 ----
 ## Timeline
