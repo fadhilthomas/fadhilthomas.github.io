@@ -1,5 +1,74 @@
 <link href="https://fonts.googleapis.com/css?family=Product+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+<style>
+/* HIGHLIGHT TEXT */
+.highlight {
+	display: inline-block; padding: 0 10px; color: #fff; background: #111;
+	}
+/* light highlights */
+.highlight.light {
+	background: #fff; color: #111;
+	}
+/* blue highlights */
+.highlight.blue {
+	background: #0100ff;
+	}
+/* green highlights */
+.highlight.green {
+	background: #00b388;
+	}
+/* red highlights */
+.highlight.red {
+	background: #ff322e;
+	}
+/* yellow highlights */
+.highlight.yellow {
+	background: #ffcc2f;
+	}
+/* pink highlights */
+.highlight.pink {
+	background: #f94877;
+	}
+/* purple highlights */
+.highlight.purple {
+	background: #554488;
+	}
+/* tango highlights */
+.highlight.tango {
+	background: #E1523D;
+	}
+/* aqua highlights */
+.highlight.aqua {
+	background: #0099ff;
+	}
+/* navy highlights */
+.highlight.navy {
+	background: #414f5a;
+	}
+/* leather highlights */
+.highlight.leather {
+	background: #AB9878;
+	}
+/* azure highlights */
+.highlight.azure {
+	background: #02ACAB;
+	}
+/* peach highlights */
+.highlight.peach {
+	background: #FEA680;
+	}
+/* hot-pink highlights */
+.highlight.hot-pink {
+	background: #FE65B7;
+	}
+/* coral highlights */
+.highlight.coral {
+	background: #F63341;
+	}
+/* grey highlights */
+.highlight.grey {
+	background: #AAB8C1;
+	}
+</style>
 {% if page.title == "Home"
    or page.title == "Blog"
    or page.title == "Portfolio"
@@ -20,7 +89,15 @@
 
         <h1 class="title">{{ site.name }}</h1>
         <h2 class="description">{{ site.bio }}</h2>
-
+		{% if page.title == "Home" %}
+		<h1>
+                <span id="typed"></span>
+                <div id="typed-strings">
+                    <p><span class="highlight pink">security engineer</span></p>
+                    <p><span class="highlight azure">android engineer</span></p>
+                </div>
+            </h1>
+		{% endif %}
         {% include social-links.html %}
     </header>
 {% endif %}
