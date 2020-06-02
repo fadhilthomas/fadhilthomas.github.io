@@ -7,6 +7,7 @@ resume-external: false
 resume-url: 'https://google.com/?q=my+resume'
 url: 'https://fadhilthomas.github.io'
 permalink: '/:title/'
+analytics-google: 'UA-168205407-1'
 disqus:
   shortname: fadhilthomas
   categories:
