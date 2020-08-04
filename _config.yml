@@ -26,7 +26,7 @@ authors:
     picture: assets/images/profiles.jpg
 width: normal
 projects: true
-about: false
+about: true
 blog: true
 read-time: true
 show-tags: true
