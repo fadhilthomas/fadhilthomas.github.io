@@ -1,0 +1,50 @@
+baseURL: https://fadhilthomas.github.io/
+languageCode: en-us
+title: Home
+theme: "PaperMod"
+menu:
+    main:
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 10
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 20
+taxonomies:
+  category: categories
+  tag: tags
+params:
+    env: production
+    ShowShareButtons: true
+    ShowReadingTime: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    ShowToc: true
+    profileMode:
+        enabled: true
+        title: "Muhammad Thomas Fadhila Yahya" # optional default will be site title
+        subtitle: "Security Engineer"
+        imageUrl: "/profiles.jpg"
+        imageWidth: 120 # custom size
+        imageHeight: 120 # custom size
+        buttons:
+            - name: Post
+              url: "/post"
+            - name: Portfolio
+              url: "/portfolio"
+            - name: Publicity
+              url: "/publicity"
+
+    socialIcons: # optional
+        - name: "linkedin"
+          url: "http://linkedin.com/in/fadhilthomas"
+        - name: "github"
+          url: "https://github.com/fadhilthomas"
+        - name: "twitter"
+          url: "https://twitter.com/fadhilthomas"
+        - name: "instagram"
+          url: "http://instagram.com/ft.mobile"
+        
