@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Tokopedia] Information Disclosure of Sensitive Information pada Verification Login Page [ID]"
 date: '2020-01-15 18:03:56'
 tags: ['bugbounty','tokopedia','writeup']
-categories: ['writeup']
+categories: ['writeup','bugbounty']
 author: "fadhilthomas"
 draft: false
 ---

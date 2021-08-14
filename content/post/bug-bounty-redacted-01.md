@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Redacted] No Rate Limit in Forgot Password [ID]"
 date: '2019-11-15 05:00:00'
 tags: ['bugbounty','redacted','writeup']
-categories: ['writeup']
+categories: ['writeup','bugbounty']
 author: "fadhilthomas"
 draft: false
 ---

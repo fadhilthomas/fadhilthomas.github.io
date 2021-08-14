@@ -2,7 +2,7 @@
 title: "[Writeup][CTF][GitHub] Privilege Escalation on GitHub Action"
 date: '2021-06-14 04:00:00'
 tags: ['ctf','github','writeup']
-categories: ['writeup']
+categories: ['writeup','ctf']
 author: "fadhilthomas"
 draft: false
 ---

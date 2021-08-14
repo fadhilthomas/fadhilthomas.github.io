@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Tokopedia] Manipulation of Likes in Product Reviews [EN]"
 date: '2019-11-15 04:00:00'
 tags: ['bugbounty','tokopedia','writeup']
-categories: ['writeup']
+categories: ['writeup','bugbounty']
 author: "fadhilthomas"
 draft: false
 ---
