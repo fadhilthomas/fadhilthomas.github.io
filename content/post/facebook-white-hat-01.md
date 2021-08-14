@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Instagram] Instagram Still Send New DMs and Video Calls to Device After Logout [ID][EN]"
 date: '2020-04-16 11:00:00'
 tags: ['bugbounty','instagram','writeup','facebook']
-categories: ['post']
+categories: ['writeup']
 author: "fadhilthomas"
 draft: false
 ---

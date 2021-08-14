@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Tokopedia] Manipulasi Jumlah Likes di Ulasan Produk [ID]"
 date: '2019-06-23 18:03:56'
 tags: ['bugbounty','tokopedia','writeup']
-categories: ['post']
+categories: ['writeup']
 author: "fadhilthomas"
 draft: false
 ---

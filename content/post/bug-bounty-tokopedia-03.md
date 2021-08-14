@@ -2,7 +2,7 @@
 title: "[Writeup][Bug Bounty][Tokopedia] Manipulate Other User’s Cart and Wishlist on Tokopedia [EN]"
 date: '2020-07-03 04:00:00'
 tags: ['bugbounty','tokopedia','writeup']
-categories: ['post']
+categories: ['writeup']
 author: "fadhilthomas"
 draft: false
 ---
