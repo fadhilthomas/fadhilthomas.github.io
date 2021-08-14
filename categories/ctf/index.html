@@ -4,11 +4,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Categories | Home</title>
+<title>ctf | Home</title>
 <meta name=keywords content>
 <meta name=description content>
 <meta name=author content>
-<link rel=canonical href=https://fadhilthomas.github.io/categories/>
+<link rel=canonical href=https://fadhilthomas.github.io/categories/ctf/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.38d2af86e7322c41e1477009353c65c235c06821fad942c0db0df9e5353d050e.css integrity="sha256-ONKvhucyLEHhR3AJNTxlwjXAaCH62ULA2w355TU9BQ4=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://fadhilthomas.github.io/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://fadhilthomas.github.io/favicon-16x16.png>
@@ -18,13 +18,13 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.87.0">
-<link rel=alternate type=application/rss+xml href=https://fadhilthomas.github.io/categories/index.xml>
-<meta property="og:title" content="Categories">
+<link rel=alternate type=application/rss+xml href=https://fadhilthomas.github.io/categories/ctf/index.xml>
+<meta property="og:title" content="ctf">
 <meta property="og:description" content>
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://fadhilthomas.github.io/categories/">
+<meta property="og:url" content="https://fadhilthomas.github.io/categories/ctf/">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Categories">
+<meta name=twitter:title content="ctf">
 <meta name=twitter:description content>
 </head>
 <body class=list id=top>
@@ -45,7 +45,7 @@
 <ul id=menu>
 <li>
 <a href=https://fadhilthomas.github.io/categories/ title=Categories>
-<span class=active>Categories</span>
+<span>Categories</span>
 </a>
 </li>
 <li>
@@ -62,20 +62,21 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header>
-<h1>Categories</h1>
+<header class=page-header><div class=breadcrumbs><a href=https://fadhilthomas.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://fadhilthomas.github.io/categories/>Categories</a></div>
+<h1>ctf</h1>
 </header>
-<ul class=terms-tags>
-<li>
-<a href=https://fadhilthomas.github.io/categories/bugbounty/>bugbounty <sup><strong><sup>6</sup></strong></sup> </a>
-</li>
-<li>
-<a href=https://fadhilthomas.github.io/categories/ctf/>ctf <sup><strong><sup>1</sup></strong></sup> </a>
-</li>
-<li>
-<a href=https://fadhilthomas.github.io/categories/writeup/>writeup <sup><strong><sup>7</sup></strong></sup> </a>
-</li>
-</ul>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>[Writeup][CTF][GitHub] Privilege Escalation on GitHub Action</h2>
+</header>
+<section class=entry-content>
+<p>Bulan Maret 2021, GitHub mengadakan security competition, yaitu Capture The Flag yang menjadikan Github Action Workflow sebagai tantangannya.
+Peserta diberikan sebuah repositori pribadi yang berisi sebuah Github Action Workflow dan file Readme yang hanya memiliki akses baca atau pull saja. Tujuan dari tantangan ini yaitu peserta diharuskan melakukan update file di repositori tersebut.
+Problem name: log and process issue comments on: issue_comment: types: [created] jobs: issue_comment: name: log issue comment runs-on: ubuntu-latest steps: - id: comment_log name: log issue comment uses: actions/github-script@v3 env: COMMENT_BODY: ${{ github....</p>
+</section>
+<footer class=entry-footer>June 14, 2021&nbsp;·&nbsp;2 min&nbsp;·&nbsp;fadhilthomas</footer>
+<a class=entry-link aria-label="post link to [Writeup][CTF][GitHub] Privilege Escalation on GitHub Action" href=https://fadhilthomas.github.io/post/github-ctf-01/></a>
+</article>
 </main>
 <footer class=footer>
 <span>&copy; 2021 <a href=https://fadhilthomas.github.io/>Home</a></span>
