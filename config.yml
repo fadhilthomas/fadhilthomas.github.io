@@ -11,6 +11,9 @@ menu:
         - identifier: tags
           name: Tags
           url: /tags/
+          weight: 10
+        - name: Search
+          url: search/
           weight: 20
 taxonomies:
   category: categories
@@ -47,4 +50,8 @@ params:
           url: "https://twitter.com/fadhilthomas"
         - name: "instagram"
           url: "http://instagram.com/ft.mobile"
-        
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
