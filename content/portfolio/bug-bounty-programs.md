@@ -5,6 +5,7 @@ tags: ['portfolio']
 categories: ['portfolio']
 author: "fadhilthomas"
 draft: false
+summary: "List of Bug Bounty Programs"
 ---
 
 * Acorns App [Bugcrowd]

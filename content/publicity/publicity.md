@@ -4,6 +4,7 @@ date: '2019-08-20 05:00:00'
 tags: ['publicity']
 categories: ['publicity']
 author: "fadhilthomas"
+summary: "List of Publicity"
 draft: false
 ---
 

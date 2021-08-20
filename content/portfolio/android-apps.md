@@ -5,6 +5,7 @@ tags: ['portfolio']
 categories: ['portfolio']
 author: "fadhilthomas"
 draft: false
+summary: "List of Android Apps"
 ---
 
 * BoyExpress [City Courier Startup] [`https://www.instagram.com/p/B4284T5Ahj4/`](https://www.instagram.com/p/B4284T5Ahj4/)

@@ -5,6 +5,7 @@ tags: ['portfolio']
 categories: ['portfolio']
 author: "fadhilthomas"
 draft: false
+summary: "List of Web Apps"
 ---
 
 * Irta Chatbot [Cooking Assistant Line Chatbot] [`https://github.com/fadhilthomas/irta-backend`](https://github.com/fadhilthomas/irta-backend)
