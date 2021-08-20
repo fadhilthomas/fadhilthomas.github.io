@@ -2,6 +2,7 @@ baseURL: https://fadhilthomas.github.io/
 languageCode: en-us
 title: Home
 theme: "PaperMod"
+googleAnalytics: UA-168205407-1
 menu:
     main:
         - identifier: categories
