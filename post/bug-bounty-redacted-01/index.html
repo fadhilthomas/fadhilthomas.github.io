@@ -20,7 +20,7 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.87.0">
-<meta property="og:title" content="[Writeup][Bug Bounty][Redacted] No Rate Limit in Forgot Password [ID]">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-168205407-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="[Writeup][Bug Bounty][Redacted] No Rate Limit in Forgot Password [ID]">
 <meta property="og:description" content="No Rate Limit adalah sebuah kondisi di mana sebuah aplikasi tidak memiliki pembatasan terhadap request yang sama. Jadi seseorang dapat mengirimkan request sama yang berulang-ulang.
  Affected Endpoint https://[redacted]/api/internal/auth/reset_password_email  Impact Karena service yang tidak memiliki rate limit berhubungan dengan layanan email, maka seseorang dapat membuat service ini mengirimkan email reset password secara masif. Hal ini dapat membuat reputasi pengirim email menjadi buruk dan dinilai sebagai spammer oleh Email Provider seperti Gmail.">
 <meta property="og:type" content="article">

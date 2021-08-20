@@ -21,7 +21,7 @@ Problem name: log and process issue comments on: issue_comment: types: [created]
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.87.0">
-<meta property="og:title" content="[Writeup][CTF][GitHub] Privilege Escalation on GitHub Action">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-168205407-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="[Writeup][CTF][GitHub] Privilege Escalation on GitHub Action">
 <meta property="og:description" content="Bulan Maret 2021, GitHub mengadakan security competition, yaitu Capture The Flag yang menjadikan Github Action Workflow sebagai tantangannya.
 Peserta diberikan sebuah repositori pribadi yang berisi sebuah Github Action Workflow dan file Readme yang hanya memiliki akses baca atau pull saja. Tujuan dari tantangan ini yaitu peserta diharuskan melakukan update file di repositori tersebut.
 Problem name: log and process issue comments on: issue_comment: types: [created] jobs: issue_comment: name: log issue comment runs-on: ubuntu-latest steps: - id: comment_log name: log issue comment uses: actions/github-script@v3 env: COMMENT_BODY: ${{ github.">

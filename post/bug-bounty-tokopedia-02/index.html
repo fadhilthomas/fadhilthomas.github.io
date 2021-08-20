@@ -20,7 +20,7 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.87.0">
-<meta property="og:title" content="[Writeup][Bug Bounty][Tokopedia] Information Disclosure of Sensitive Information pada Verification Login Page [ID]">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-168205407-1','auto'),ga('send','pageview'))</script><meta property="og:title" content="[Writeup][Bug Bounty][Tokopedia] Information Disclosure of Sensitive Information pada Verification Login Page [ID]">
 <meta property="og:description" content="Setelah melakukan login, kita akan dialihkan ke halaman verifikasi dengan dua opsi yaitu SMS dan Telepon. Nomor telepon yang digunakan untuk mengirimkan kode verifikasi tidak diperlihatkan seluruhnya untuk alasan keamanan. Akan tetapi informasi pengguna tersimpan di dalam Cookie dan hanya dilakukan URL-encoding.
  Affected Endpoint https://accounts.tokopedia.com/otp/c/page  Impact  Apabila kredential pengguna bocor dan seseorang mencoba untuk melakukan login, walaupun dia belum melewati halaman verifikasi tetapi dia sudah bisa mendapatkan informasi sensitif pengguna seperti nama, nomor telepon, email, tanggal pendaftaran dan ulang tahun yang dapat digunakan untuk melakukan phishing untuk mencuri kode verifikasi.">
 <meta property="og:type" content="article">
