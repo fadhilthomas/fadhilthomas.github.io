@@ -12,6 +12,10 @@ menu:
           name: Tags
           url: /tags/
           weight: 10
+        - identifier: archives
+          name: Archives
+          url: /archives/
+          weight: 10
         - name: Search
           url: search/
           weight: 20
