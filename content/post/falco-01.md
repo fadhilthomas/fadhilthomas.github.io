@@ -457,29 +457,6 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 }
 ```
 
-### Mencoba Custom Rule
-
-Kali ini, saya akan mencoba membuat *custom rule* untuk mendeteksi apabila ada aktifitas perinta `whoami` pada container `dvwa`.
-`falco-custom-rules.yml`
-```yml
-customRules:
-rules-dvwa.yaml: |
-  - macro: dvwa_consider_syscalls
-    condition: (evt.num < 0)
-
-  - macro: app_dvwa
-    condition: container and container.image contains "dvwa"
-
-  - rule: The program "whoami" is run in a container
-    desc: An event will trigger every time you run "whoami" in a container
-    condition: evt.type = execve and evt.dir=< and container.id != host and proc.name = whoami
-    output: "whoami command run in container (user=%user.name %container.info parent=%proc.pname cmdline=%proc.cmdline)"
-    priority: NOTICE
-    warn_evttypes: False
-```
-
-Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
-
 ---
 ## Referensi
 1. https://falco.org/docs/getting-started/
