@@ -68,8 +68,8 @@ managedNodeGroups:
 ```
 
 Jalankan perintah berikut untuk membuat kluster Kubernetes.
-```
-eksctl create cluster -f falco-cluster.yml
+```console
+fadhil@thomas:~$ eksctl create cluster -f falco-cluster.yml
 ```
 
 Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config di path `~/.kube/config`
@@ -102,8 +102,8 @@ Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu
 }
 ```
 Jalankan perintah berikut untuk membuat policy dengan nama `EKS-CloudWatchLogs`.
-```
-aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://iam_role_policy.json
+```console
+fadhil@thomas:~$ aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://iam_role_policy.json
 
 ```
 Kemudian tempelkan policy `EKS-CloudWatchLogs` ke role EKS NodeGroup. Nama role dari EKS NodeGroup dapat dilihat dengan cara berikut:
@@ -113,8 +113,8 @@ Kemudian tempelkan policy `EKS-CloudWatchLogs` ke role EKS NodeGroup. Nama role 
 * Akan terlihat nama role di bagian Node IAM role ARN.
 
 Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke NodeGroup role.
-```
-aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
+```console
+fadhil@thomas:~$ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
 ```
 
 
@@ -168,7 +168,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluent-bit
-  namespace: kube-system
+  namespace: logging
   labels:
     app.kubernetes.io/name: fluent-bit
 spec:
@@ -255,8 +255,8 @@ subjects:
 ```
 
 Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan perintah berikut untuk men*deploy* fluent-bit.
-```
-kubectl apply -f fluent-bit/ -n default
+```console
+fadhil@thomas:~$ kubectl apply -f fluent-bit/ -n default
 ```
 
 
@@ -265,8 +265,8 @@ kubectl apply -f fluent-bit/ -n default
 Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
 
 Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
-```
-helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
+```console
+fadhil@thomas:~$ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
 
 
@@ -322,15 +322,52 @@ spec:
 ---
 ```
 Jalankan perintah berikut untuk men*deploy* dvwa.
-```
-kubectl apply -f dvwa-deployment.yml
+```console
+fadhil@thomas:~$ kubectl apply -f dvwa-deployment.yml
 ```
 
 ---
 ## Simulasi dan Pengujian
 
+### Memunculkan Shell
+Jalankan perintah berikut untuk memunculkan *shell* di dalam *pod* `dvwa`.
+```console
+fadhil@thomas:~$ kubectl get pod -n dvwa
+NAME                        READY   STATUS    RESTARTS   AGE
+dvwa-app-54f998c8c5-b85m2   1/1     Running   0          10m
+```
+```console
+fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
+root@dvwa-app-54f998c8c5-b85m2:/#
+``` 
 
-
+### Membaca File Passwd
+Jalankan perintah berikut untuk membaca file `passwd` di dalam *pod* `dvwa`.
+```console
+fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
+root@dvwa-app-54f998c8c5-b85m2:/# cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/bin/false
+mysql:x:101:101:MySQL Server,,,:/nonexistent:/bin/false
+root@dvwa-app-54f998c8c5-b85m2:/#
+``` 
 ---
 ## Referensi
 1. https://falco.org/docs/getting-started/
