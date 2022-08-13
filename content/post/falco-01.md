@@ -338,7 +338,7 @@ fadhil@thomas:~$ kubectl apply -f dvwa-deployment.yml
 ---
 ## Simulasi dan Pengujian
 
-Setelah berhasil memasang `Falco` pada kluster Kubernetes, maka sekarang saatnya ujicoba dan simulasi untuk melihat apakah `Falco` berhasil mendeteksi aktivitas yang mencurigakan.
+Setelah berhasil memasang `Falco` pada kluster Kubernetes, maka sekarang saatnya uji coba dan simulasi untuk melihat apakah `Falco` berhasil mendeteksi aktivitas yang mencurigakan.
 
 ### Memunculkan Shell
 
