@@ -265,6 +265,60 @@ Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dib
 helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
 
+### Monitored App
+
+Saya akan men*deploy* DVWA ( https://github.com/digininja/DVWA ). Perlu diingat DVWA merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+`dvwa-deployment.yml`
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dvwa
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvwa-app
+  namespace: dvwa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvwa-app
+  template:
+    metadata:
+      labels:
+        app: dvwa-app
+    spec:
+      containers:
+      - image: vulnerables/web-dvwa
+        imagePullPolicy: IfNotPresent
+        name: dvwa-app
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dvwa-app
+  namespace: dvwa
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: dvwa-app
+---
+```
+Jalankan perintah berikut untuk men*deploy* dvwa.
+```
+kubectl apply -f dvwa-deployment.yml
+```
 
 ## Referensi
 1. https://falco.org/docs/getting-started/
