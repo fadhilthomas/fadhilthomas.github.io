@@ -71,6 +71,190 @@ eksctl create cluster -f falco-cluster.yml
 Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config di path `~/.kube/config`
 
 ### Log Forwading
+Log yang dihasilkan oleh Falco akan diteruskan ke Amazon CloudWatch agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke SIEM atau membuat *alerting*.
+
+#### IAM Permission
+Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu membuat IAM Policy.
+
+`iam_role_policy.json`
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:*"
+            ]
+        }
+    ]
+}
+```
+Jalankan perintah berikut untuk membuat policy dengan nama `EKS-CloudWatchLogs`.
+```
+aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://iam_role_policy.json
+
+```
+Kemudian tempelkan policy `EKS-CloudWatchLogs` ke role EKS NodeGroup. Nama role dari EKS NodeGroup dapat dilihat dengan cara berikut:
+* Buka halaman Amazon Elastic Kubernetes Service.
+* Pilih falco-cluster di daftar Clusters.
+* Pilih falco-node di Node groups pada tab Compute.
+* Akan terlihat nama role di bagian Node IAM role ARN.
+
+Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke NodeGroup role.
+```
+aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
+```
+
+#### Fluent Bit Deployment
+Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
+
+`fluent-bit-namespace.yaml`
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fluent-bit
+```
+
+`fluent-bit-configmap.yaml`
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: fluent-bit
+  labels:
+    app.kubernetes.io/name: fluent-bit
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Parsers_File  parsers.conf
+    [INPUT]
+        Name              tail
+        Tag               falco.*
+        Path              /var/log/containers/falco*.log
+        Parser            falco
+        DB                /var/log/flb_falco.db
+        Mem_Buf_Limit     5MB
+        Skip_Long_Lines   On
+        Refresh_Interval  10
+    [OUTPUT]
+        Name cloudwatch
+        Match falco.**
+        region eu-west-1
+        log_group_name falco
+        log_stream_name alerts
+        auto_create_group true
+  parsers.conf: |
+    [PARSER]
+        Name        falco
+        Format      json
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep   Off
+        # Command      |  Decoder | Field | Optional Action
+        # =============|==================|=================
+        Decode_Field_As   json    log
+```
+
+`fluent-bit-daemonset.yaml`
+```
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit
+  namespace: fluent-bit
+  labels:
+    app.kubernetes.io/name: fluent-bit
+spec:
+  selector:
+    matchLabels:
+      name: fluent-bit
+  template:
+    metadata:
+      labels:
+        name: fluent-bit
+    spec:
+      serviceAccountName: fluent-bit
+      containers:
+      - name: aws-for-fluent-bit
+        image: amazon/aws-for-fluent-bit:1.2.2
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+        - name: fluent-bit-config
+          mountPath: /fluent-bit/etc/
+        - name: mnt
+          mountPath: /mnt
+          readOnly: true
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            cpu: 500m
+            memory: 100Mi
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+      - name: fluent-bit-config
+        configMap:
+          name: fluent-bit-config
+      - name: mnt
+        hostPath:
+          path: /mnt
+```
+
+`fluent-bit-service-account.yaml`
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluent-bit
+  namespace: fluent-bit
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-log-reader
+rules:
+- apiGroups: [""]
+  resources:
+  - namespaces
+  - pods
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-log-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pod-log-reader
+subjects:
+- kind: ServiceAccount
+  name: fluent-bit
+  namespace: fluent-bit
+```
+
+Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan perintah berikut untuk men*deploy* fluent-bit.
+```
+kubectl apply -f fluent-bit/
+```
 
 
 ### Falco
