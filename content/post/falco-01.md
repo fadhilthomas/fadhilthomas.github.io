@@ -121,21 +121,12 @@ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam 
 #### Fluent Bit DaemonSet
 Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
 
-`fluent-bit-namespace.yml`
-```
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: fluent-bit
-```
-
 `fluent-bit-configmap.yml`
 ```
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fluent-bit-config
-  namespace: fluent-bit
   labels:
     app.kubernetes.io/name: fluent-bit
 data:
@@ -176,7 +167,6 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluent-bit
-  namespace: fluent-bit
   labels:
     app.kubernetes.io/name: fluent-bit
 spec:
@@ -230,7 +220,6 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: fluent-bit
-  namespace: fluent-bit
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -254,12 +243,12 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: fluent-bit
-  namespace: fluent-bit
+  namespace: default
 ```
 
 Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan perintah berikut untuk men*deploy* fluent-bit.
 ```
-kubectl apply -f fluent-bit/
+kubectl apply -f fluent-bit/ -n default
 ```
 
 
