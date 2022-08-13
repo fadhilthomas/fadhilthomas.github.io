@@ -9,18 +9,18 @@ draft: false
 
 ![alt text](/falco01/falco-logo.webp)
 
-Tulisan ini dibuat sebagai catatan saat mencoba Falco untuk memantau *container* secara *runtime* di Amazon EKS. 
+Tulisan ini dibuat sebagai catatan saat mencoba `Falco` untuk memantau *container* secara *runtime* di `Amazon EKS`. 
 
 ## Apa itu Falco?
 
-Falco adalah aplikasi *runtime security* yang berlisensi *open-source* dan gratis dikembangkan Sysdic, Inc. Saat tulisan ini dibuat, Falco masuk ke dalam CNCF project dengan status inkubasi.
+`Falco` adalah aplikasi *runtime security* yang berlisensi *open-source* dan gratis dikembangkan Sysdic, Inc. Saat tulisan ini dibuat, `Falco` masuk ke dalam CNCF project dengan status inkubasi.
 
 ---
 ## Manfaat Falco
 
-Falco dapat mendeteksi dan mengirimkan notifikasi apabila ada aktifitas di dalam *container* yang dianggap mencurigakan sesuai dengan aturan atau *rule* yang sudah dibuat sebelumnya. Falco dapat memantau system call Linux dengan menggunakan kernel module atau eBPF probe dari kernel secara *runtime*.
+`Falco` dapat mendeteksi dan mengirimkan notifikasi apabila ada aktifitas di dalam *container* yang dianggap mencurigakan sesuai dengan aturan atau *rule* yang sudah dibuat sebelumnya. `Falco` dapat memantau system call Linux dengan menggunakan kernel module atau eBPF probe dari kernel secara *runtime*.
 
-Falco memiliki beberapa *rule* bawaan, diantaranya:
+`Falco` memiliki beberapa *rule* bawaan, diantaranya:
 * *Privilege escalation* menggunakan *privileged containers*
 * Perubahan *namespace* menggunakan aplikasi seperti `setns`
 * Aktivitas baca atau tulis ke direktori terkenal seperti `/etc`, `/usr/bin`, `/usr/sbin`, dan lain-lain
@@ -34,7 +34,7 @@ Falco memiliki beberapa *rule* bawaan, diantaranya:
 * Perubahan login *binaries*
 * Perubahan `shadowutil` or `passwd` *executables* seperti `shadowconfig`, `pwck`, `chpasswd`, `getpasswd`, `change`, `useradd`, dan lain-lain.
 
-Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa lihat dokumentasi Falco di `https://falco.org/docs/` dan daftar lengkap *rule* bisa lihat di `https://github.com/falcosecurity/falco/tree/master/rules`.
+Penjelasan singkat untuk `Falco` sudah cukup, untuk ingin tahu lebih detil bisa lihat dokumentasi `Falco` di `https://falco.org/docs/` dan daftar lengkap *rule* bisa lihat di `https://github.com/falcosecurity/falco/tree/master/rules`.
 
 ---
 ## Pemasangan Falco
@@ -46,7 +46,7 @@ Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
 
 ### Kubernetes Cluster
 
-Sebelum dapat memasang Falco, terlebih dahulu perlu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih `Amazon EKS` dengan bantuan aplikasi `eksctl` dengan `CloudFormation`. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
+Sebelum dapat memasang `Falco`, terlebih dahulu perlu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih `Amazon EKS` dengan bantuan aplikasi `eksctl` dengan `CloudFormation`. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
 
 `falco-cluster.yml`
 ```yml
@@ -78,7 +78,7 @@ Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config 
 
 ### Log Forwading
 
-Log yang dihasilkan oleh Falco akan diteruskan ke `Amazon CloudWatch` agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke `SIEM` atau membuat *alerting*.
+Log yang dihasilkan oleh `Falco` akan diteruskan ke `Amazon CloudWatch` agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke `SIEM` atau membuat *alerting*.
 
 
 #### IAM Permission
@@ -266,13 +266,13 @@ fadhil@thomas:~$ kubectl apply -f fluent-bit/
 ---
 ### Falco DaemonSet
 
-Ada beberapa cara untuk memasang Falco. Pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
+Ada beberapa cara untuk memasang `Falco`. Pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log `Falco` menjadi json.
 
-Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
+Jalan perintah berikut untuk memasang `Falco` di kluster Kubernetes yang sudah dibuat sebelumnya.
 ```console
 fadhil@thomas:~$ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
-Jalankan perintah berikut untuk memeriksa apakah Falco sudah berjalan dengan sukses.
+Jalankan perintah berikut untuk memeriksa apakah `Falco` sudah berjalan dengan sukses.
 ```console
 fadhil@thomas:~$ kubectl get pod -n falco
 NAME          READY   STATUS    RESTARTS   AGE
@@ -338,7 +338,7 @@ fadhil@thomas:~$ kubectl apply -f dvwa-deployment.yml
 ---
 ## Simulasi dan Pengujian
 
-Setelah berhasil memasang Falco pada kluster Kubenernes, maka sekarang saatnya ujicoba dan simulasi untuk melihat apakah Falco berhasil mendeteksi aktivitas yang mencurigakan.
+Setelah berhasil memasang `Falco` pada kluster Kubernetes, maka sekarang saatnya ujicoba dan simulasi untuk melihat apakah `Falco` berhasil mendeteksi aktivitas yang mencurigakan.
 
 ### Memunculkan Shell
 
