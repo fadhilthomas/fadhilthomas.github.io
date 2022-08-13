@@ -51,10 +51,6 @@ params:
           url: "http://linkedin.com/in/fadhilthomas"
         - name: "github"
           url: "https://github.com/fadhilthomas"
-        - name: "twitter"
-          url: "https://twitter.com/fadhilthomas"
-        - name: "instagram"
-          url: "http://instagram.com/ft.mobile"
 outputs:
     home:
         - HTML

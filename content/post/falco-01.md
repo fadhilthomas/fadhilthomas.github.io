@@ -2,7 +2,7 @@
 title: "Mencoba Falco - Cloud-Native Runtime Security di Amazon EKS"
 date: '2022-08-13 00:00:00'
 tags: ['falco','cloud-native','explore']
-categories: ['explore','cloud-native']
+categories: ['exploration','cloud-native']
 author: "fadhilthomas"
 draft: false
 ---
