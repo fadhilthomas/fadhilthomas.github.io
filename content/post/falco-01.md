@@ -127,6 +127,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fluent-bit-config
+  namespace: logging
   labels:
     app.kubernetes.io/name: fluent-bit
 data:
@@ -145,7 +146,7 @@ data:
     [OUTPUT]
         Name cloudwatch
         Match falco.**
-        region eu-west-1
+        region ap-southeast-1
         log_group_name falco
         log_stream_name alerts
         auto_create_group true
@@ -167,6 +168,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluent-bit
+  namespace: kube-system
   labels:
     app.kubernetes.io/name: fluent-bit
 spec:
@@ -217,9 +219,15 @@ spec:
 `fluent-bit-service-account.yml`
 ```
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: fluent-bit
+  namespace: logging
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -243,7 +251,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: fluent-bit
-  namespace: default
+  namespace: logging
 ```
 
 Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan perintah berikut untuk men*deploy* fluent-bit.
