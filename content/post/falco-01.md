@@ -36,8 +36,13 @@ Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa li
 
 ## Bagaimana memasang Falco?
 
-Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang saya gunakan untuk men*deploy* Kubernetes kluster.
+Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
+![alt text](/falco01/falco-architecture.png)
 
+### Kubernetes Cluster
+Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
+
+`falco-cluster.yml`
 ```
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
@@ -57,6 +62,23 @@ managedNodeGroups:
     volumeEncrypted: true
     desiredCapacity: 1
 ```
+
+Jalankan perintah berikut untuk membuat kluster Kubernetes.
+```
+eksctl create cluster -f falco-cluster.yml
+```
+
+Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config di path `~/.kube/config`
+
+### Log Forwading
+
+
+### Falco
+
+Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari https://github.com/falcosecurity/charts/blob/master/falco/values.yaml. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
+
+Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
+
 
 
 ## Referensi
