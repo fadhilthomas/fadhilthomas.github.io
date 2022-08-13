@@ -32,7 +32,7 @@ Falco memiliki beberapa *rule* bawaan, diantara:
 * Perubahan login binaries
 * Perubahan `shadowutil` or `passwd` executables seperti `shadowconfig`, `pwck`, `chpasswd`, `getpasswd`, `change`, `useradd`, dan lain-lain.
 
-Mungkin itu sampai di sana saja penjelasan singkat untuk Falco, untuk yang ingin tahu lebih detil bisa lihat dokumentasi falco di https://falco.org/docs/.
+Mungkin itu sampai di sana saja penjelasan singkat untuk Falco, untuk yang ingin tahu lebih detil bisa lihat dokumentasi falco di https://falco.org/docs/ dan daftar lengkap *rule* bisa lihat di https://github.com/falcosecurity/falco/tree/master/rules.
 
 ## Bagaimana memasang Falco?
 

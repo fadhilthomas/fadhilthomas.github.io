@@ -34,7 +34,7 @@ params:
     profileMode:
         enabled: true
         title: "Muhammad Thomas Fadhila Yahya" # optional default will be site title
-        subtitle: "IT Security Engineer"
+        subtitle: "Security Engineer"
         imageUrl: "/profiles.jpg"
         imageWidth: 120 # custom size
         imageHeight: 120 # custom size
