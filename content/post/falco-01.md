@@ -36,7 +36,27 @@ Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa li
 
 ## Bagaimana memasang Falco?
 
-Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation.
+Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang saya gunakan untuk men*deploy* Kubernetes kluster.
+
+```
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: falco-cluster
+  region: ap-southeast-1
+  version: "1.19"
+
+managedNodeGroups:
+  - name: falco-node
+    minSize: 1
+    maxSize: 2
+    instanceType: t3a.small
+    amiFamily: AmazonLinux2
+    volumeSize: 30
+    volumeEncrypted: true
+    desiredCapacity: 1
+```
 
 
 ## Referensi
