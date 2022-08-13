@@ -115,7 +115,7 @@ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam 
 #### Fluent Bit Deployment
 Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
 
-`fluent-bit-namespace.yaml`
+`fluent-bit-namespace.yml`
 ```
 apiVersion: v1
 kind: Namespace
@@ -123,7 +123,7 @@ metadata:
   name: fluent-bit
 ```
 
-`fluent-bit-configmap.yaml`
+`fluent-bit-configmap.yml`
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -164,7 +164,7 @@ data:
         Decode_Field_As   json    log
 ```
 
-`fluent-bit-daemonset.yaml`
+`fluent-bit-daemonset.yml`
 ```
 apiVersion: apps/v1
 kind: DaemonSet
@@ -218,7 +218,7 @@ spec:
           path: /mnt
 ```
 
-`fluent-bit-service-account.yaml`
+`fluent-bit-service-account.yml`
 ```
 apiVersion: v1
 kind: ServiceAccount
