@@ -12,9 +12,11 @@ draft: false
 Tulisan ini dibuat sebagai catatan saat mencoba Falco untuk memantau *container* secara *runtime* di Amazon EKS. 
 
 ## Apa itu Falco?
+
 Falco adalah aplikasi *runtime security* yang berlisensi *open-source* dan gratis dikembangkan Sysdic, Inc. Saat tulisan ini dibuat, Falco masuk ke dalam CNCF project dengan status inkubasi.
 
-## Apa manfaat menggunakan Falco?
+---
+## Manfaat Falco
 
 Falco dapat mendeteksi dan mengirimkan notifikasi apabila ada aktifitas di dalam *container* yang dianggap berbahaya sesuai dengan aturan atau *rule* yang sudah dibuat sebelumnya. Falco dapat memantau system call Linux dengan menggunakan kernel module atau eBPF probe dari kernel secara *runtime*.
 
@@ -34,10 +36,12 @@ Falco memiliki beberapa *rule* bawaan, diantaranya:
 
 Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa lihat dokumentasi Falco di `https://falco.org/docs/` dan daftar lengkap *rule* bisa lihat di `https://github.com/falcosecurity/falco/tree/master/rules`.
 
-## Bagaimana memasang Falco?
+---
+## Pemasangan Falco
 
 Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
 ![alt text](/falco01/falco-architecture.png)
+
 
 ### Kubernetes Cluster
 Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
@@ -72,6 +76,7 @@ Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config 
 
 ### Log Forwading
 Log yang dihasilkan oleh Falco akan diteruskan ke Amazon CloudWatch agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke SIEM atau membuat *alerting*.
+
 
 #### IAM Permission
 Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu membuat IAM Policy.
@@ -111,6 +116,7 @@ Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke NodeG
 ```
 aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
 ```
+
 
 #### Fluent Bit Deployment
 Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
@@ -256,6 +262,7 @@ Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan pe
 kubectl apply -f fluent-bit/
 ```
 
+
 ### Falco
 
 Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
@@ -264,6 +271,7 @@ Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dib
 ```
 helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
+
 
 ### Monitored App
 
@@ -321,6 +329,12 @@ Jalankan perintah berikut untuk men*deploy* dvwa.
 kubectl apply -f dvwa-deployment.yml
 ```
 
+---
+## Simulasi dan Pengujian
+
+
+
+---
 ## Referensi
 1. https://falco.org/docs/getting-started/
 2. https://eksctl.io/
