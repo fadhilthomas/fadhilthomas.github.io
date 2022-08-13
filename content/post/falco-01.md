@@ -103,8 +103,8 @@ aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://
 ```
 Kemudian tempelkan policy `EKS-CloudWatchLogs` ke role EKS NodeGroup. Nama role dari EKS NodeGroup dapat dilihat dengan cara berikut:
 * Buka halaman Amazon Elastic Kubernetes Service.
-* Pilih falco-cluster di daftar Clusters.
-* Pilih falco-node di Node groups pada tab Compute.
+* Pilih `falco-cluster` di daftar Clusters.
+* Pilih `falco-node` di Node groups pada tab Compute.
 * Akan terlihat nama role di bagian Node IAM role ARN.
 
 Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke NodeGroup role.
@@ -256,13 +256,14 @@ Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan pe
 kubectl apply -f fluent-bit/
 ```
 
-
 ### Falco
 
 Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari https://github.com/falcosecurity/charts/blob/master/falco/values.yaml. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
 
 Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
-
+```
+helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
+```
 
 
 ## Referensi
