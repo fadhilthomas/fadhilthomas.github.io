@@ -118,7 +118,7 @@ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam 
 ```
 
 
-#### Fluent Bit Deployment
+#### Fluent Bit DaemonSet
 Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
 
 `fluent-bit-namespace.yml`
@@ -263,7 +263,7 @@ kubectl apply -f fluent-bit/
 ```
 
 
-### Falco
+### Falco DaemonSet
 
 Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
 
