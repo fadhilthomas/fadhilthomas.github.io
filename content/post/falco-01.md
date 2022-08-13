@@ -281,7 +281,7 @@ falco-9q9hc   1/1     Running   0          26m
 ---
 ### Monitored App
 
-Saya akan men*deploy* `dvwa` `https://github.com/digininja/DVWA`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+Untuk uji coba, saya akan men*deploy* `dvwa` [`https://github.com/digininja/DVWA`] yang nantinya akan dipantau oleh `Falco`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
 
 `dvwa-deployment.yml`
 ```yml
