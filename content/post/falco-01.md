@@ -267,7 +267,8 @@ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create
 
 ### Monitored App
 
-Saya akan men*deploy* DVWA ( https://github.com/digininja/DVWA ). Perlu diingat DVWA merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+Saya akan men*deploy* `dvwa` ( https://github.com/digininja/DVWA ). Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+
 `dvwa-deployment.yml`
 ```
 apiVersion: v1
