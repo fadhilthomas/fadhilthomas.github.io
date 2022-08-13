@@ -47,7 +47,7 @@ Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
 Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
 
 `falco-cluster.yml`
-```
+```yml
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
@@ -82,7 +82,7 @@ Log yang dihasilkan oleh Falco akan diteruskan ke Amazon CloudWatch agar terpusa
 Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu membuat IAM Policy.
 
 `iam_role_policy.json`
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -122,7 +122,7 @@ fadhil@thomas:~$ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --pol
 Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
 
 `fluent-bit-configmap.yml`
-```
+```yml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -163,7 +163,7 @@ data:
 ```
 
 `fluent-bit-daemonset.yml`
-```
+```yml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -217,7 +217,7 @@ spec:
 ```
 
 `fluent-bit-service-account.yml`
-```
+```yml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -275,7 +275,7 @@ fadhil@thomas:~$ helm install falco -f values.yaml falcosecurity/falco --namespa
 Saya akan men*deploy* `dvwa` `https://github.com/digininja/DVWA`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
 
 `dvwa-deployment.yml`
-```
+```yml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -456,6 +456,30 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
     "stream": "stdout"
 }
 ```
+
+### Mencoba Custom Rule
+
+Kali ini, saya akan mencoba membuat *custom rule* untuk mendeteksi apabila ada aktifitas perinta `whoami` pada container `dvwa`.
+`falco-custom-rules.yml`
+```yml
+customRules:
+rules-dvwa.yaml: |
+  - macro: dvwa_consider_syscalls
+    condition: (evt.num < 0)
+
+  - macro: app_dvwa
+    condition: container and container.image contains "dvwa"
+
+  - rule: The program "whoami" is run in a container
+    desc: An event will trigger every time you run "whoami" in a container
+    condition: evt.type = execve and evt.dir=< and container.id != host and proc.name = whoami
+    output: "whoami command run in container (user=%user.name %container.info parent=%proc.pname cmdline=%proc.cmdline)"
+    priority: NOTICE
+    warn_evttypes: False
+```
+
+Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+
 ---
 ## Referensi
 1. https://falco.org/docs/getting-started/
