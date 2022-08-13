@@ -18,11 +18,11 @@ Falco adalah aplikasi *runtime security* yang berlisensi *open-source* dan grati
 ---
 ## Manfaat Falco
 
-Falco dapat mendeteksi dan mengirimkan notifikasi apabila ada aktifitas di dalam *container* yang dianggap berbahaya sesuai dengan aturan atau *rule* yang sudah dibuat sebelumnya. Falco dapat memantau system call Linux dengan menggunakan kernel module atau eBPF probe dari kernel secara *runtime*.
+Falco dapat mendeteksi dan mengirimkan notifikasi apabila ada aktifitas di dalam *container* yang dianggap mencurigakan sesuai dengan aturan atau *rule* yang sudah dibuat sebelumnya. Falco dapat memantau system call Linux dengan menggunakan kernel module atau eBPF probe dari kernel secara *runtime*.
 
 Falco memiliki beberapa *rule* bawaan, diantaranya:
 * *Privilege escalation* menggunakan *privileged containers*
-* Perubahan namespace menggunakan aplikasi seperti `setns`
+* Perubahan *namespace* menggunakan aplikasi seperti `setns`
 * Aktivitas baca atau tulis ke direktori terkenal seperti `/etc`, `/usr/bin`, `/usr/sbin`, dan lain-lain
 * Pembuatan `symlinks`
 * Perubahan `ownership` dan `mode`
@@ -46,7 +46,7 @@ Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
 
 ### Kubernetes Cluster
 
-Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
+Sebelum dapat memasang Falco, terlebih dahulu perlu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih `Amazon EKS` dengan bantuan aplikasi `eksctl` dengan `CloudFormation`. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
 
 `falco-cluster.yml`
 ```yml
@@ -78,12 +78,12 @@ Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config 
 
 ### Log Forwading
 
-Log yang dihasilkan oleh Falco akan diteruskan ke Amazon CloudWatch agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke SIEM atau membuat *alerting*.
+Log yang dihasilkan oleh Falco akan diteruskan ke `Amazon CloudWatch` agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke `SIEM` atau membuat *alerting*.
 
 
 #### IAM Permission
 
-Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu membuat IAM Policy.
+Untuk dapat meneruskan log ke `Amazon CloudWatch` dibutuhkan perizinan, maka perlu membuat `IAM Policy`.
 
 `iam_role_policy.json`
 ```json
@@ -108,22 +108,22 @@ Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu
 Jalankan perintah berikut untuk membuat policy dengan nama `EKS-CloudWatchLogs`.
 ```console
 fadhil@thomas:~$ aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://iam_role_policy.json
-
 ```
 Kemudian tempelkan policy `EKS-CloudWatchLogs` ke role EKS NodeGroup. Nama role dari EKS NodeGroup dapat dilihat dengan cara berikut:
 * Buka halaman Amazon Elastic Kubernetes Service.
 * Pilih `falco-cluster` di daftar Clusters.
 * Pilih `falco-node` di Node groups pada tab Compute.
-* Akan terlihat nama role di bagian Node IAM role ARN.
+* Akan terlihat nama role di bagian `Node IAM role ARN`.
 
-Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke NodeGroup role.
+Jalankan perintah berikut untuk menambahkan policy `EKS-CloudWatchLogs` ke EKS NodeGroup role.
 ```console
 fadhil@thomas:~$ aws iam attach-role-policy --role-name EKS-NODE-ROLE-NAME --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
 ```
 
-
+---
 #### Fluent Bit DaemonSet
-Setelah menyiapkan IAM Permission, kemudian dapat men*deploy* Fluent Bit.
+
+Setelah menyiapkan `IAM Permission`, kemudian dapat men*deploy* Fluent Bit. Berikut adalah *manifest* dari Fluent Bit.
 
 `fluent-bit-configmap.yml`
 ```yml
@@ -260,20 +260,25 @@ subjects:
 
 Siapkan semua manifest fluent-bit ke dalam satu folder `fluent-bit`. Jalankan perintah berikut untuk men*deploy* fluent-bit.
 ```console
-fadhil@thomas:~$ kubectl apply -f fluent-bit/ -n default
+fadhil@thomas:~$ kubectl apply -f fluent-bit/
 ```
 
-
+---
 ### Falco DaemonSet
 
-Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
+Ada beberapa cara untuk memasang Falco. Pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
 
 Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
 ```console
 fadhil@thomas:~$ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
-
-
+Jalankan perintah berikut untuk memeriksa apakah Falco sudah berjalan dengan sukses.
+```console
+fadhil@thomas:~$ kubectl get pod -n falco
+NAME          READY   STATUS    RESTARTS   AGE
+falco-9q9hc   1/1     Running   0          26m
+```
+---
 ### Monitored App
 
 Saya akan men*deploy* `dvwa` `https://github.com/digininja/DVWA`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
@@ -333,6 +338,8 @@ fadhil@thomas:~$ kubectl apply -f dvwa-deployment.yml
 ---
 ## Simulasi dan Pengujian
 
+Setelah berhasil memasang Falco pada kluster Kubenernes, maka sekarang saatnya ujicoba dan simulasi untuk melihat apakah Falco berhasil mendeteksi aktivitas yang mencurigakan.
+
 ### Memunculkan Shell
 
 Jalankan perintah berikut untuk memunculkan *shell* di dalam *pod* `dvwa`.
@@ -340,13 +347,12 @@ Jalankan perintah berikut untuk memunculkan *shell* di dalam *pod* `dvwa`.
 fadhil@thomas:~$ kubectl get pod -n dvwa
 NAME                        READY   STATUS    RESTARTS   AGE
 dvwa-app-54f998c8c5-b85m2   1/1     Running   0          10m
-```
-```console
+
 fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
 root@dvwa-app-54f998c8c5-b85m2:/#
 ```
 
-Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
@@ -380,14 +386,14 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 
 ### Membaca File Sensitif
 
-Jalankan perintah berikut untuk membaca file `passwd` di dalam *pod* `dvwa`.
+Jalankan perintah berikut untuk membaca file `shadow` di dalam *pod* `dvwa`.
 ```console
 fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
 root@dvwa-app-54f998c8c5-b85m2:/# cat /etc/shadow > /dev/null 2>&1
 root@dvwa-app-54f998c8c5-b85m2:/#
 ```
 
-Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
@@ -426,7 +432,7 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 Submit `google.com; cat /etc/passwd` pada text box di halaman DVWA.
 ![alt text](/falco01/falco-dvwa-01.png)
 
-Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
@@ -464,6 +470,13 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 ```
 
 ---
+## Kesimpulan
+
+Dalam tulisan ini, saya telah menunjukkan bagaimana memantau aktivitas mencurigakan secara *runtime* di dalam *container* di kluster `Amazon EKS` menggunakan Falco, dan meneruskan *log*nya ke `Amazon CloudWatch`.
+
+---
 ## Referensi
+
 1. https://falco.org/docs/getting-started/
 2. https://eksctl.io/
+3. https://github.com/digininja/DVWA
