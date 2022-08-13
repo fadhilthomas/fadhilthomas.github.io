@@ -352,7 +352,7 @@ fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
 root@dvwa-app-54f998c8c5-b85m2:/#
 ```
 
-Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
+Berikut adalah log yang muncul pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
@@ -393,7 +393,7 @@ root@dvwa-app-54f998c8c5-b85m2:/# cat /etc/shadow > /dev/null 2>&1
 root@dvwa-app-54f998c8c5-b85m2:/#
 ```
 
-Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
+Berikut adalah log yang muncul pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
@@ -432,7 +432,7 @@ Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
 Submit `google.com; cat /etc/passwd` pada text box di halaman DVWA.
 ![alt text](/falco01/falco-dvwa-01.png)
 
-Berikut adalah log yang dapat dilihat pada `Amazon CloudWatch`.
+Berikut adalah log yang muncul pada `Amazon CloudWatch`.
 ```json
 {
     "log": {
