@@ -1,7 +1,7 @@
 ---
 title: "Cloud-Native Runtime Security dengan Falco di Amazon EKS"
 date: '2022-08-13 00:00:00'
-tags: ['falco','cloud-native','explore']
+tags: ['falco','cloud-native','explore','amazon','aws','open-source']
 categories: ['exploration','cloud-native']
 author: "fadhilthomas"
 draft: false
@@ -339,35 +339,123 @@ dvwa-app-54f998c8c5-b85m2   1/1     Running   0          10m
 ```console
 fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
 root@dvwa-app-54f998c8c5-b85m2:/#
-``` 
+```
 
-### Membaca File Passwd
+Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+```json
+{
+    "log": {
+        "output": "21:36:54.888738975: Notice A shell was spawned in a container with an attached terminal (user=root user_loginuid=-1 k8s.ns=dvwa k8s.pod=dvwa-app-54f998c8c5-b85m2 container=bf4d401d1c5e shell=bash parent=runc cmdline=bash terminal=34816 container_id=bf4d401d1c5e image=vulnerables/web-dvwa)",
+        "output_fields": {
+            "container.id": "bf4d401d1c5e",
+            "container.image.repository": "vulnerables/web-dvwa",
+            "evt.time": 1660426614888738975,
+            "k8s.ns.name": "dvwa",
+            "k8s.pod.name": "dvwa-app-54f998c8c5-b85m2",
+            "proc.cmdline": "bash",
+            "proc.name": "bash",
+            "proc.pname": "runc",
+            "proc.tty": 34816,
+            "user.loginuid": -1,
+            "user.name": "root"
+        },
+        "priority": "Notice",
+        "rule": "Terminal shell in container",
+        "source": "syscall",
+        "tags": [
+            "container",
+            "mitre_execution",
+            "shell"
+        ],
+        "time": "2022-08-13T21:36:54.888738975Z"
+    },
+    "stream": "stdout"
+}
+```
+
+### Membaca File Shadow
 Jalankan perintah berikut untuk membaca file `passwd` di dalam *pod* `dvwa`.
 ```console
 fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
-root@dvwa-app-54f998c8c5-b85m2:/# cat /etc/passwd
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
-gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-_apt:x:100:65534::/nonexistent:/bin/false
-mysql:x:101:101:MySQL Server,,,:/nonexistent:/bin/false
+root@dvwa-app-54f998c8c5-b85m2:/# cat /etc/shadow > /dev/null 2>&1
 root@dvwa-app-54f998c8c5-b85m2:/#
-``` 
+```
+
+Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+```json
+{
+    "log": {
+        "output": "21:43:22.271495665: Warning Sensitive file opened for reading by non-trusted program (user=root user_loginuid=-1 program=cat command=cat /etc/shadow file=/etc/shadow parent=bash gparent=<NA> ggparent=<NA> gggparent=<NA> container_id=bf4d401d1c5e image=vulnerables/web-dvwa) k8s.ns=dvwa k8s.pod=dvwa-app-54f998c8c5-b85m2 container=bf4d401d1c5e",
+        "output_fields": {
+            "container.id": "bf4d401d1c5e",
+            "container.image.repository": "vulnerables/web-dvwa",
+            "evt.time": 1660427002271495665,
+            "fd.name": "/etc/shadow",
+            "k8s.ns.name": "dvwa",
+            "k8s.pod.name": "dvwa-app-54f998c8c5-b85m2",
+            "proc.aname[2]": null,
+            "proc.aname[3]": null,
+            "proc.aname[4]": null,
+            "proc.cmdline": "cat /etc/shadow",
+            "proc.name": "cat",
+            "proc.pname": "bash",
+            "user.loginuid": -1,
+            "user.name": "root"
+        },
+        "priority": "Warning",
+        "rule": "Read sensitive file untrusted",
+        "source": "syscall",
+        "tags": [
+            "filesystem",
+            "mitre_credential_access",
+            "mitre_discovery"
+        ],
+        "time": "2022-08-13T21:43:22.271495665Z"
+    },
+    "stream": "stdout"
+}
+```
+
+### Kerentanan Command Injection di DVWA
+Submit `google.com; cat /etc/passwd` pada text box di halaman DVWA.
+![alt text](/falco01/falco-dvwa-01.png)
+
+Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
+```json
+{
+    "log": {
+        "output": "21:57:08.286599298: Debug Shell spawned by untrusted binary (user=www-data user_loginuid=-1 shell=sh parent=apache2 cmdline=sh -c ping  -c 4 google.com; cat /etc/passwd pcmdline=apache2 -k start gparent=apache2 ggparent=main.sh aname[4]=<NA> aname[5]=<NA> aname[6]=<NA> aname[7]=<NA> container_id=bf4d401d1c5e image=vulnerables/web-dvwa) k8s.ns=dvwa k8s.pod=dvwa-app-54f998c8c5-b85m2 container=bf4d401d1c5e",
+        "output_fields": {
+            "container.id": "bf4d401d1c5e",
+            "container.image.repository": "vulnerables/web-dvwa",
+            "evt.time": 1660427828286599298,
+            "k8s.ns.name": "dvwa",
+            "k8s.pod.name": "dvwa-app-54f998c8c5-b85m2",
+            "proc.aname[2]": "apache2",
+            "proc.aname[3]": "main.sh",
+            "proc.aname[4]": null,
+            "proc.aname[5]": null,
+            "proc.aname[6]": null,
+            "proc.aname[7]": null,
+            "proc.cmdline": "sh -c ping  -c 4 google.com; cat /etc/passwd",
+            "proc.name": "sh",
+            "proc.pcmdline": "apache2 -k start",
+            "proc.pname": "apache2",
+            "user.loginuid": -1,
+            "user.name": "www-data"
+        },
+        "priority": "Debug",
+        "rule": "Run shell untrusted",
+        "source": "syscall",
+        "tags": [
+            "mitre_execution",
+            "shell"
+        ],
+        "time": "2022-08-13T21:57:08.286599298Z"
+    },
+    "stream": "stdout"
+}
+```
 ---
 ## Referensi
 1. https://falco.org/docs/getting-started/
