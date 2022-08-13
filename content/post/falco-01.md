@@ -4,7 +4,7 @@ date: '2022-08-13 00:00:00'
 tags: ['falco','cloud-native','explore']
 categories: ['explore','cloud-native']
 author: "fadhilthomas"
-draft: true
+draft: false
 ---
 
 ![alt text](/falco01/falco-logo.webp)
