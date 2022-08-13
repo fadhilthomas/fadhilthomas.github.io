@@ -32,7 +32,7 @@ Falco memiliki beberapa *rule* bawaan, diantaranya:
 * Perubahan login *binaries*
 * Perubahan `shadowutil` or `passwd` *executables* seperti `shadowconfig`, `pwck`, `chpasswd`, `getpasswd`, `change`, `useradd`, dan lain-lain.
 
-Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa lihat dokumentasi Falco di https://falco.org/docs/ dan daftar lengkap *rule* bisa lihat di https://github.com/falcosecurity/falco/tree/master/rules.
+Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa lihat dokumentasi Falco di `https://falco.org/docs/` dan daftar lengkap *rule* bisa lihat di `https://github.com/falcosecurity/falco/tree/master/rules`.
 
 ## Bagaimana memasang Falco?
 
@@ -258,7 +258,7 @@ kubectl apply -f fluent-bit/
 
 ### Falco
 
-Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari https://github.com/falcosecurity/charts/blob/master/falco/values.yaml. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
+Ada beberapa cara untuk memasang Falco, pada tulisan ini saya akan mencoba menggunakan Helm Chart. Terlebih dahulu unduh file `values.yaml` dari `https://github.com/falcosecurity/charts/blob/master/falco/values.yaml`. Ubah `json_output: false` menjadi `json_output: true` untuk menjadikan format output log Falco menjadi json.
 
 Jalan perintah berikut untuk memasang Falco di kluster Kubernetes yang sudah dibuat sebelumnya.
 ```
@@ -267,7 +267,7 @@ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create
 
 ### Monitored App
 
-Saya akan men*deploy* `dvwa` ( https://github.com/digininja/DVWA ). Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+Saya akan men*deploy* `dvwa` `https://github.com/digininja/DVWA`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
 
 `dvwa-deployment.yml`
 ```
