@@ -472,7 +472,7 @@ Berikut adalah log yang muncul pada `Amazon CloudWatch`.
 ---
 ## Kesimpulan
 
-Dalam tulisan ini, saya telah menunjukkan bagaimana memantau aktivitas mencurigakan secara *runtime* di dalam *container* di kluster `Amazon EKS` menggunakan Falco, dan meneruskan *log*nya ke `Amazon CloudWatch`.
+Dalam tulisan ini, saya telah menunjukkan bagaimana memantau aktivitas mencurigakan secara *runtime* di dalam *container* di kluster `Amazon EKS` menggunakan `Falco`, dan meneruskan *log*nya ke `Amazon CloudWatch`.
 
 ---
 ## Referensi
