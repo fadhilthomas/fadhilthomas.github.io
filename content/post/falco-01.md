@@ -40,10 +40,12 @@ Penjelasan singkat untuk Falco sudah cukup, untuk ingin tahu lebih detil bisa li
 ## Pemasangan Falco
 
 Berikut adalah gambaran umum arsitektur yang akan di*deploy* pada tulisan ini.
+
 ![alt text](/falco01/falco-architecture.png)
 
 
 ### Kubernetes Cluster
+
 Sebelum dapat memasang Falco, terlebih dahulu men*deploy* sebuah kluster Kubernetes. Di tulisan ini, saya memilih Amazon EKS dengan bantuan aplikasi `eksctl` dengan CloudFormation. Berikut adalah manifest yang digunakan untuk men*deploy* Kubernetes kluster.
 
 `falco-cluster.yml`
@@ -75,10 +77,12 @@ fadhil@thomas:~$ eksctl create cluster -f falco-cluster.yml
 Setelah proses pembuatan kluster berhasil, maka akan tersimpan file kube config di path `~/.kube/config`
 
 ### Log Forwading
+
 Log yang dihasilkan oleh Falco akan diteruskan ke Amazon CloudWatch agar terpusat dan nantinya akan memudahkan apabila ingin meneruskannya lagi ke SIEM atau membuat *alerting*.
 
 
 #### IAM Permission
+
 Untuk dapat meneruskan log ke Amazon CloudWatch dibutuhkan perizinan, maka perlu membuat IAM Policy.
 
 `iam_role_policy.json`
@@ -330,6 +334,7 @@ fadhil@thomas:~$ kubectl apply -f dvwa-deployment.yml
 ## Simulasi dan Pengujian
 
 ### Memunculkan Shell
+
 Jalankan perintah berikut untuk memunculkan *shell* di dalam *pod* `dvwa`.
 ```console
 fadhil@thomas:~$ kubectl get pod -n dvwa
@@ -373,7 +378,8 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 }
 ```
 
-### Membaca File Shadow
+### Membaca File Sensitif
+
 Jalankan perintah berikut untuk membaca file `passwd` di dalam *pod* `dvwa`.
 ```console
 fadhil@thomas:~$ kubectl exec -it dvwa-app-54f998c8c5-b85m2 -- /bin/bash
@@ -416,7 +422,7 @@ Berikut adalah log yang dapat dilihat pada Amazon CloudWatch.
 }
 ```
 
-### Kerentanan Command Injection di DVWA
+### Memanfaatkan Kerentanan Command Injection di DVWA
 Submit `google.com; cat /etc/passwd` pada text box di halaman DVWA.
 ![alt text](/falco01/falco-dvwa-01.png)
 
