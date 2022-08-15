@@ -287,7 +287,7 @@ falco-9q9hc   1/1     Running   0          26m
 
 Untuk uji coba, saya akan men*deploy* `dvwa` [`https://github.com/digininja/DVWA`] yang nantinya akan dipantau oleh `Falco`.
 
-Kenapa memilih `dvwa`? `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan seperti *command injection*. Jadi yang ingin dicoba adalah apakah `Falco` dapat mendeteksi apabila ada seseorang yang memanfaatkan kerentanan seperti *command injection* dari koneksi luar, jadi jangan mencobanya pada server publik mana pun.
+Kenapa memilih `dvwa`? `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan seperti *command injection*. Jadi yang ingin dicoba adalah apakah `Falco` dapat mendeteksi apabila ada seseorang yang memanfaatkan kerentanan seperti *command injection* dari koneksi luar. Jadi jangan mencobanya pada server publik mana pun.
 
 `dvwa-deployment.yml`
 ```yml
