@@ -1,5 +1,5 @@
 ---
-title: "Cloud-Native Runtime Security dengan Falco di Amazon EKS"
+title: "Mencoba Cloud-Native Runtime Security dengan Falco di Amazon EKS - Bagian 1"
 date: '2022-08-13 00:00:00'
 tags: ['falco','cloud-native','explore','amazon','aws','open-source','kubernetes','eks','docker','security']
 categories: ['exploration','cloud-native','kubernetes','aws','security']
@@ -272,6 +272,10 @@ Jalan perintah berikut untuk memasang `Falco` di kluster Kubernetes yang sudah d
 ```console
 fadhil@thomas:~$ helm install falco -f values.yaml falcosecurity/falco --namespace falco --create-namespace
 ```
+atau bisa juga dengan *command* `--set`
+```console
+fadhil@thomas:~$ helm install falco --set falco.json_output=true falcosecurity/falco --namespace falco --create-namespace
+```
 Jalankan perintah berikut untuk memeriksa apakah `Falco` sudah berjalan dengan sukses.
 ```console
 fadhil@thomas:~$ kubectl get pod -n falco
@@ -281,7 +285,9 @@ falco-9q9hc   1/1     Running   0          26m
 ---
 ### Monitored App
 
-Untuk uji coba, saya akan men*deploy* `dvwa` [`https://github.com/digininja/DVWA`] yang nantinya akan dipantau oleh `Falco`. Perlu diingat `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan, jadi jangan mencobanya pada server publik mana pun.
+Untuk uji coba, saya akan men*deploy* `dvwa` [`https://github.com/digininja/DVWA`] yang nantinya akan dipantau oleh `Falco`.
+
+Kenapa memilih `dvwa`? `dvwa` merupakan aplikasi yang memiliki kerentanan terhadap beberapa jenis serangan seperti *command injection*. Jadi yang ingin dicoba adalah apakah `Falco` dapat mendeteksi apabila ada seseorang yang memanfaatkan kerentanan seperti *command injection* dari koneksi luar, jadi jangan mencobanya pada server publik mana pun.
 
 `dvwa-deployment.yml`
 ```yml
