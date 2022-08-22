@@ -33,7 +33,7 @@ params:
     ShowToc: true
     profileMode:
         enabled: true
-        title: "Muhammad Thomas Fadhila Yahya" # optional default will be site title
+        title: "Fadhil Thomas" # optional default will be site title
         subtitle: "Security Engineer"
         imageUrl: "/profiles.jpg"
         imageWidth: 120 # custom size
