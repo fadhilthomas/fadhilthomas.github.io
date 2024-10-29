@@ -34,7 +34,7 @@ params:
     profileMode:
         enabled: true
         title: "Fadhil Thomas" # optional default will be site title
-        subtitle: "Security Engineer"
+        subtitle: "Cyber Security Engineer"
         imageUrl: "/profiles.jpg"
         imageWidth: 120 # custom size
         imageHeight: 120 # custom size
